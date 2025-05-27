@@ -5,12 +5,9 @@ def main():
     cell1.draw(50, 50, 100, 100)
 
     cell2 = Cell(win)
-    cell2.has_top_wall = False
-    cell2.draw(50, 100, 100, 150)
+    cell2.draw(100, 50, 150, 100)
 
-    cell3 = Cell(win)
-    cell3.has_left_wall = False
-    cell3.has_top_wall = False
-    cell3.draw(100, 100, 150, 150)
+    cell1.draw_move(cell2)  # Movimiento normal
+    cell2.draw_move(cell1, undo=True)  # Retroceso en rojo
     win.wait_for_close()
 main()

@@ -73,3 +73,18 @@ class Cell():
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.__win.draw_line(line,"black")
+    def draw_move(self, to_cell, undo=False):
+        # Calculamos el centro de la celda actual
+        x_mid = (self.__x1 + self.__x2) // 2
+        y_mid = (self.__y1 + self.__y2) // 2
+
+        # Calculamos el centro de la celda destino
+        to_x_mid = (to_cell.__x1 + to_cell.__x2) // 2
+        to_y_mid = (to_cell.__y1 + to_cell.__y2) // 2
+
+        # Línea entre los dos centros
+        line = Line(Point(x_mid, y_mid), Point(to_x_mid, to_y_mid))
+        if undo:
+            self.__win.draw_line(line,"red")
+        else:
+            self.__win.draw_line(line,"grey")

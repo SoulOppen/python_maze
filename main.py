@@ -23,9 +23,29 @@ class Window:
 
     def close(self):
         self.__running = False
-
+    def draw_line(self,line,fill_color):
+        line.draw(self.__canvas,fill_color)
+class Point:
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+class Line:
+    def __init__(self,point1,point2):
+        self.point1=point1
+        self.point2=point2
+    def draw(self,canvas,fill_color):
+        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=2)
 def main():
     win = Window(800, 600)
-    win.wait_for_close()
+    lines_with_colors = [
+        (Line(Point(100, 100), Point(400, 100)), "red"),
+        (Line(Point(100, 150), Point(400, 200)), "blue"),
+        (Line(Point(100, 200), Point(400, 300)), "green"),
+        (Line(Point(100, 250), Point(400, 400)), "purple"),
+        (Line(Point(100, 300), Point(400, 500)), "orange"),
+    ]
 
+    for line, color in lines_with_colors:
+        win.draw_line(line, color)
+    win.wait_for_close()
 main()

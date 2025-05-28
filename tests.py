@@ -46,5 +46,21 @@ class Tests(unittest.TestCase):
             m._Maze__cells[4][4].has_bottom_wall,
             "La salida aún tiene pared inferior"
         )
+    def test_reset_cells_visited(self):
+        num_cols = 5
+        num_rows = 5
+        maze = Maze(0, 0, num_rows, num_cols, 10, 10, seed=0)
+        
+        # Marcar algunas celdas como visitadas a mano para el test
+        maze._Maze__cells[0][0].visited = True
+        maze._Maze__cells[2][3].visited = True
+        
+        # Llamar al método que queremos testear
+        maze._Maze__reset_cells_visited()
+        
+        # Comprobar que todas las celdas están en False
+        for i in range(num_cols):
+            for j in range(num_rows):
+                self.assertFalse(maze._Maze__cells[i][j].visited)
 if __name__ == "__main__":
     unittest.main()

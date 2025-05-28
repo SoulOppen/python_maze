@@ -31,6 +31,20 @@ class Tests(unittest.TestCase):
             self.assertTrue(True) 
         except Exception as e:
             self.fail(f"_animate() lanzó una excepción inesperada: {e}")
+    def test_break_entrance_and_exit(self):
+        # Crear un laberinto de 5x5
+        m = Maze(0, 0, 5, 5, 10, 10)
 
+        # Llamar al método privado
+        m._Maze__break_entrance_and_exit()
+
+        # Verificar que la entrada no tiene pared superior
+        self.assertFalse(m._Maze__cells[0][0].has_top_wall, "La entrada aún tiene pared superior")
+
+        # Verificar que la salida no tiene pared inferior
+        self.assertFalse(
+            m._Maze__cells[4][4].has_bottom_wall,
+            "La salida aún tiene pared inferior"
+        )
 if __name__ == "__main__":
     unittest.main()

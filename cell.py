@@ -19,26 +19,28 @@ class Cell():
         self.__x2 = x2
         self.__y2 = y2
         if self.__win is None:
-            return 
+            return
+        wall_color = "black"
+        erase_color = "#d9d9d9" 
         # Left Wall
-        if self.has_left_wall:
-            line = Line(Point(x1, y1), Point(x1, y2))
-            self.__win.draw_line(line,"black")
+        line = Line(Point(x1, y1), Point(x1, y2))            
+        color_left= wall_color if self.has_left_wall else erase_color
+        self.__win.draw_line(line,color_left)
 
         # Top Wall
-        if self.has_top_wall:
-            line = Line(Point(x1, y1), Point(x2, y1))
-            self.__win.draw_line(line,"black")
+        line = Line(Point(x1, y1), Point(x2, y1))
+        color_top= wall_color if self.has_top_wall else erase_color
+        self.__win.draw_line(line,color_top)
 
         # Right Wall
-        if self.has_right_wall:
-            line = Line(Point(x2, y1), Point(x2, y2))
-            self.__win.draw_line(line,"black")
+        line = Line(Point(x2, y1), Point(x2, y2))
+        color_right= wall_color if self.has_right_wall else erase_color
+        self.__win.draw_line(line,color_right)
 
         # Bottom Wall
-        if self.has_bottom_wall:
-            line = Line(Point(x1, y2), Point(x2, y2))
-            self.__win.draw_line(line,"black")
+        line = Line(Point(x1, y2), Point(x2, y2))
+        color_bottom= wall_color if self.has_bottom_wall else erase_color
+        self.__win.draw_line(line,color_bottom)
     def draw_move(self, to_cell, undo=False):
         # Calculamos el centro de la celda actual
         x_mid = (self.__x1 + self.__x2) // 2

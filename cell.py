@@ -56,6 +56,6 @@ class Cell():
         if self.__win is None:
             return
         if undo:
-            self.__win.draw_line(line,"red")
-        else:
             self.__win.draw_line(line,"grey")
+        else:
+            self.__win.draw_line(line,"red")

@@ -25,6 +25,7 @@ class Maze:
         self.__create_cells()
         self.__break_walls_r(0, 0)
         self.__reset_cells_visited()
+        self.solve()
         self.__break_entrance_and_exit()
     def __create_cells(self):
         for i in range(self.num_cols):
@@ -112,3 +113,36 @@ class Maze:
         for i in range(self.num_cols):
             for j in range(self.num_rows):
                 self.__cells[i][j].visited = False
+    def solve(self):
+        return self.__solve_r(0, 0)
+
+    def __solve_r(self, i, j):
+        self._animate()
+        current_cell = self.__cells[i][j]
+        current_cell.visited = True
+
+        # Check for goal (bottom-right corner)
+        if i == self.num_cols - 1 and j == self.num_rows - 1:
+            return True
+
+        # Try moving in each direction
+        directions = [
+            ("left", i - 1, j, not current_cell.has_left_wall),
+            ("right", i + 1, j, not current_cell.has_right_wall),
+            ("up", i, j - 1, not current_cell.has_top_wall),
+            ("down", i, j + 1, not current_cell.has_bottom_wall),
+        ]
+
+        for direction, ni, nj, can_move in directions:
+            if (
+                0 <= ni < self.num_cols and
+                0 <= nj < self.num_rows and
+                can_move and
+                not self.__cells[ni][nj].visited
+            ):
+                current_cell.draw_move(self.__cells[ni][nj])
+                if self.__solve_r(ni, nj):
+                    return True
+                current_cell.draw_move(self.__cells[ni][nj], undo=True)
+
+        return False

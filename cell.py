@@ -1,7 +1,7 @@
 from line import Line
 from point import Point
 class Cell():
-    def __init__(self,win):
+    def __init__(self,win=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -18,7 +18,8 @@ class Cell():
         self.__y1 = y1
         self.__x2 = x2
         self.__y2 = y2
-
+        if self.__win is None:
+            return 
         # Left Wall
         if self.has_left_wall:
             line = Line(Point(x1, y1), Point(x1, y2))
@@ -49,6 +50,8 @@ class Cell():
 
         # Línea entre los dos centros
         line = Line(Point(x_mid, y_mid), Point(to_x_mid, to_y_mid))
+        if self.__win is None:
+            return
         if undo:
             self.__win.draw_line(line,"red")
         else:
